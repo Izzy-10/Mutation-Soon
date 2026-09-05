@@ -210,16 +210,31 @@
   .vf-pillar.p1{ left: 12%; height: 62%; }
   .vf-pillar.p2{ left: 82%; height: 70%; }
 
-  .vf-figure{
+  .vf-person{
     position: absolute;
-    width: 5.5%;
-    height: 32%;
-    background: rgba(236,232,224,0.22);
-    border-radius: 40% 40% 10% 10%;
     bottom: 18%;
+    width: 6%;
+    height: 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .vf-figure.f1{ left: 34%; }
-  .vf-figure.f2{ left: 58%; height: 26%; opacity: 0.7; }
+  .vf-person .vf-head{
+    width: 42%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background: rgba(236,232,224,0.24);
+    flex-shrink: 0;
+    margin-bottom: 3%;
+  }
+  .vf-person .vf-body{
+    width: 100%;
+    flex: 1;
+    background: rgba(236,232,224,0.2);
+    clip-path: polygon(18% 0%, 82% 0%, 68% 100%, 32% 100%);
+  }
+  .vf-person.f1{ left: 33%; }
+  .vf-person.f2{ left: 57%; height: 26%; opacity: 0.7; }
 
   .vf-grain{
     position: absolute; inset: 0;
@@ -590,8 +605,8 @@
           <div class="vf-pillar p1"></div>
           <div class="vf-pillar p2"></div>
           <div class="vf-floor"></div>
-          <div class="vf-figure f1"></div>
-          <div class="vf-figure f2"></div>
+          <div class="vf-person f1"><div class="vf-head"></div><div class="vf-body"></div></div>
+          <div class="vf-person f2"><div class="vf-head"></div><div class="vf-body"></div></div>
           <div class="vf-grain"></div>
           <div class="vf-scanline"></div>
 
