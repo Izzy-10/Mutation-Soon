@@ -420,6 +420,27 @@
     max-width: 30ch;
   }
 
+  .callout{
+    margin-top: 56px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--sky);
+    border-radius: 6px;
+    padding: 26px 30px;
+  }
+  .callout-q{
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .callout p{
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    max-width: 70ch;
+  }
+
   /* ---------- DETECTIONS ---------- */
   .detect{
     padding: 88px 0;
@@ -571,6 +592,63 @@
     font-size: 0.82rem;
     color: var(--text-dim);
   }
+
+  /* ---------- FLOATING MENU + BACK TO TOP ---------- */
+  .floating-nav{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .fnav-menu{
+    display: none;
+    flex-direction: column;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 12px 30px -10px rgba(18,98,143,0.35);
+    min-width: 190px;
+  }
+  .fnav-menu.open{ display: flex; }
+  .fnav-menu a{
+    padding: 10px 12px;
+    border-radius: 5px;
+    font-size: 0.92rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .fnav-menu a:hover{ background: var(--bg); }
+  .fnav-btn{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--sky);
+    color: #ffffff;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px -8px rgba(18,98,143,0.5);
+    transition: background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  }
+  .fnav-btn:hover{ background: #3aa8e0; }
+  #back-to-top{
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+  }
+  #back-to-top.visible{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
 </style>
 </head>
 <body>
@@ -582,6 +660,7 @@
       <a href="#how">How it works</a>
       <a href="#detect">Detections</a>
       <a href="#math">Why now</a>
+      <a href="mutation-soon-pitch-deck.pptx" download>Pitch deck</a>
     </div>
     <a href="booking.html" class="nav-cta">Book a walkthrough</a>
   </nav>
@@ -595,7 +674,7 @@
       <p class="lede">Mutation Soon adds real-time detection on top of the cameras you already have — fire, smoke, unsafe behavior, and perimeter breaches, surfaced the moment they happen instead of found in tomorrow's footage.</p>
       <div class="hero-actions">
         <a href="booking.html" class="btn-primary">Book a walkthrough</a>
-        <a href="booking.html" class="btn-secondary">See it on your cameras</a>
+        <a href="see-it-in-action.html" class="btn-secondary">See it on your cameras</a>
       </div>
     </div>
 
@@ -678,6 +757,11 @@
         <p>Every camera, every alert, every clip — in one place, sorted by what needs a human now.</p>
       </div>
     </div>
+
+    <div class="callout">
+      <div class="callout-q">Is this a hardware replacement?</div>
+      <p>No — it's an update, not a swap. We connect to the video stream your cameras already output; nothing gets rewired or replaced.</p>
+    </div>
   </div>
 </section>
 
@@ -754,6 +838,45 @@
     <span>Durban, South Africa</span>
   </div>
 </footer>
+
+<div class="floating-nav">
+  <div id="fnav-menu" class="fnav-menu">
+    <a href="#how">How it works</a>
+    <a href="#detect">Detections</a>
+    <a href="#math">Why now</a>
+    <a href="see-it-in-action.html">See it on your cameras</a>
+    <a href="mutation-soon-pitch-deck.pptx" download>Pitch deck</a>
+    <a href="booking.html">Book a walkthrough</a>
+  </div>
+  <button id="fnav-toggle" class="fnav-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+  <button id="back-to-top" class="fnav-btn" aria-label="Back to top">↑</button>
+</div>
+
+<script>
+  const fnavToggle = document.getElementById('fnav-toggle');
+  const fnavMenu = document.getElementById('fnav-menu');
+  const backToTop = document.getElementById('back-to-top');
+
+  fnavToggle.addEventListener('click', () => {
+    const isOpen = fnavMenu.classList.toggle('open');
+    fnavToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  fnavMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      fnavMenu.classList.remove('open');
+      fnavToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
 
 </body>
 </html>
